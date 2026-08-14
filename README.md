@@ -1,11 +1,11 @@
-# 🎭 Playwright E2E Framework — Page Object Model Reference
+# 🎭 Playwright E2E Framework - Page Object Model Reference
 
 [![Playwright Tests](https://github.com/kathks/playwright-e2e-framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/kathks/playwright-e2e-framework/actions/workflows/playwright.yml)
 ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-A production-shaped test automation framework built with **Playwright + TypeScript**, demonstrating the Page Object Model, component objects, fixture-based dependency injection, CI-gated execution, and a working **self-healing locator layer** that recovers from selector drift and reports every heal as telemetry.
+A test automation framework built with **Playwright + TypeScript** that shows how to structure E2E tests at scale. It covers the Page Object Model, reusable components, dependency injection with fixtures, a self-healing locator layer that bounces back from selector drift, and proper CI integration.
 
 It runs against **[saucedemo.com](https://www.saucedemo.com)** , a public demo storefront, so anyone can clone this repo and have a green suite in under two minutes. No VPN, no seeded database, no credentials to request.
 
@@ -41,7 +41,7 @@ npm test
 | **Page decomposition**       | Checkout is split into `CheckoutDetailsPage` → `CheckoutOverviewPage` → `OrderConfirmationPage`, mirroring the real user journey instead of one god-object                                                               |
 | **Dependency injection**     | Custom fixtures construct page objects lazily; tests declare what they need in the signature. A `loggedIn` fixture supplies an authenticated session so no test repeats login steps                                      |
 | **Data-driven testing**      | Negative login cases are a data array, so adding a scenario is a one-line change and still produces an independent result in the report                                                                                  |
-| **Business-rule assertions** | The E2E journey verifies subtotal = Σ item prices, tax = 8% of subtotal, total = subtotal + tax — not merely that a page rendered                                                                                        |
+| **Business-rule assertions** | The E2E journey verifies subtotal = Σ item prices, tax = 8% of subtotal, total = subtotal + tax, not just that a page rendered                                                                                           |
 | **Readable reporting**       | `test.step` groups the journey into stakeholder-legible phases so a failure names the phase, not just a line number                                                                                                      |
 | **Test tagging**             | `@smoke`, `@regression`, `@e2e` allow a fast PR gate and a deeper scheduled run from one suite                                                                                                                           |
 | **Self-healing locators**    | Elements resolve from a prioritised strategy chain; a fallback is recorded as a healing event and attached to the report, so drift becomes visible telemetry instead of silent tolerance (`src/support/self-healing.ts`) |
@@ -92,7 +92,7 @@ npm test
 
 Selector drift is the biggest maintenance cost in a UI suite: a developer renames a class or drops a `data-test` attribute, and a green suite goes red for a reason that has nothing to do with product behaviour.
 
-`resolveResilient()` resolves an element from a **prioritised strategy chain** instead of a single selector — the semantic, intentional locator first, then progressively more incidental fallbacks:
+`resolveResilient()` resolves an element from a **prioritised strategy chain** instead of a single selector: the semantic, intentional locator first, then progressively more incidental fallbacks.
 
 ```ts
 private static readonly username: LocatorStrategy[] = [
@@ -108,9 +108,9 @@ Three rules keep this from becoming a way to hide problems:
 2. **Healing never invents behaviour.** It re-finds the same element. It does not guess at a different one, and it does not swallow genuine regressions.
 3. **Exhausting the chain is a real failure.** The error names every strategy it tried and states plainly that this is a defect, not drift.
 
-`tests/self-healing.spec.ts` proves it two ways: deterministically against a controlled page where the primary locator is known to be absent, and against the live application with `data-test` attributes stripped at runtime — the login journey completes anyway, and the drift is reported.
+`tests/self-healing.spec.ts` proves it two ways: against a controlled page where the primary locator is missing, and against the live app with `data-test` attributes stripped at runtime. Either way, the login works and the drift gets reported.
 
-`StrategySuggester` is the documented extension point where an LLM-backed step slots in to propose new strategies from the live DOM. A suggestion is verified against the page before use and queued as a diff for human review — never applied blind.
+`StrategySuggester` is the extension point for LLM-backed strategy proposals. Any suggestion is verified against the page and queued as a diff for review before use, never applied blind.
 
 ---
 
