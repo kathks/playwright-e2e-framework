@@ -16,19 +16,19 @@ It runs against **[saucedemo.com](https://www.saucedemo.com)**, a public demo st
 ```bash
 git clone https://github.com/kathks/playwright-e2e-framework.git
 cd playwright-e2e-framework
-npm ci
-npx playwright install --with-deps
-npm test
+yarn install
+yarn playwright install --with-deps
+yarn test
 ```
 
-| Command               | What it does                                          |
-| --------------------- | ----------------------------------------------------- |
-| `npm test`            | Full suite, all browser projects                      |
-| `npm run test:smoke`  | Critical-path tests only (`@smoke`) - the PR gate     |
-| `npm run test:headed` | Watch it drive a real browser                         |
-| `npm run test:ui`     | Playwright's interactive UI mode - best for debugging |
-| `npm run report`      | Open the last HTML report                             |
-| `npm run typecheck`   | Type-check without running tests                      |
+| Command            | What it does                                          |
+| ------------------ | ----------------------------------------------------- |
+| `yarn test`        | Full suite, all browser projects                      |
+| `yarn test:smoke`  | Critical-path tests only (`@smoke`) - the PR gate     |
+| `yarn test:headed` | Watch it drive a real browser                         |
+| `yarn test:ui`     | Playwright's interactive UI mode - best for debugging |
+| `yarn report`      | Open the last HTML report                             |
+| `yarn typecheck`   | Type-check without running tests                      |
 
 ---
 
@@ -143,7 +143,7 @@ The value of a UI framework is not how many tests it holds; it's how quickly the
 ## Notes
 
 - Test credentials here are the public demo account documented on saucedemo.com's own login page. `TEST_PASSWORD` is still read from the environment to demonstrate the correct pattern.
-- Target a different environment with `BASE_URL=https://your-app.example.com npm test`.
+- Target a different environment with `BASE_URL=https://your-app.example.com yarn test`.
 
 ## License
 
