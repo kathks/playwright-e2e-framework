@@ -7,7 +7,7 @@
 
 A test automation framework built with **Playwright + TypeScript** that shows how to structure E2E tests at scale. It covers the Page Object Model, reusable components, dependency injection with fixtures, a self-healing locator layer that bounces back from selector drift, and proper CI integration.
 
-It runs against **[saucedemo.com](https://www.saucedemo.com)** , a public demo storefront, so anyone can clone this repo and have a green suite in under two minutes. No VPN, no seeded database, no credentials to request.
+It runs against **[saucedemo.com](https://www.saucedemo.com)**, a public demo storefront, so anyone can clone this repo and have a green suite in under two minutes. No VPN, no seeded database, no credentials to request.
 
 ---
 
@@ -24,9 +24,9 @@ npm test
 | Command               | What it does                                          |
 | --------------------- | ----------------------------------------------------- |
 | `npm test`            | Full suite, all browser projects                      |
-| `npm run test:smoke`  | Critical-path tests only (`@smoke`) — the PR gate     |
+| `npm run test:smoke`  | Critical-path tests only (`@smoke`) - the PR gate     |
 | `npm run test:headed` | Watch it drive a real browser                         |
-| `npm run test:ui`     | Playwright's interactive UI mode — best for debugging |
+| `npm run test:ui`     | Playwright's interactive UI mode - best for debugging |
 | `npm run report`      | Open the last HTML report                             |
 | `npm run typecheck`   | Type-check without running tests                      |
 
@@ -116,7 +116,7 @@ Three rules keep this from becoming a way to hide problems:
 
 ## Design decisions worth defending
 
-**Locators follow the user, not the DOM.** Product actions are scoped to a card filtered by its visible name (`.filter({ hasText: name })`), then the button is found by role. When a developer changes a CSS class or reorders the grid, these tests keep passing — which is the entire point of a maintainable suite.
+**Locators follow the user, not the DOM.** Product actions are scoped to a card filtered by its visible name (`.filter({ hasText: name })`), then the button is found by role. When a developer changes a CSS class or reorders the grid, these tests keep passing - which is the entire point of a maintainable suite.
 
 **No hard waits, anywhere.** Readiness is expressed as an assertion on a `pageMarker` element, which uses Playwright's auto-retry. `waitForTimeout` does not appear in this codebase.
 
@@ -132,7 +132,7 @@ Three rules keep this from becoming a way to hide problems:
 
 This repo intentionally covers the UI layer, which is the thinnest layer of a healthy pyramid. In a real product I'd pair it with:
 
-- **API/contract tests** for business logic and boundary conditions — faster and far more stable
+- **API/contract tests** for business logic and boundary conditions - faster and far more stable
 - **Unit tests** owned by developers, gating the PR before this suite runs
 - **A small UI set** covering only journeys that must work through the browser, exactly like the one here
 
@@ -147,4 +147,4 @@ The value of a UI framework is not how many tests it holds; it's how quickly the
 
 ## License
 
-MIT — reuse freely.
+MIT - reuse freely.
