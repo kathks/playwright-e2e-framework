@@ -8,3 +8,13 @@ results/
 .env.local
 .DS_Store
 *.log
+@install-state.gz
+.yarn/cache/
+.yarn/install-state.gz
+test-output.txt
+coverage/
+*.swp
+*.swo
+.vscode/settings.json
+.idea/
+.cache/
