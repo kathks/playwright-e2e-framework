@@ -1,0 +1,47 @@
+
+Running 3 tests using 3 workers
+
+  ✓  1 [webkit] › tests/self-healing.spec.ts:47:7 › Self-healing locators › throws a clear diagnostic when every strategy is exhausted @healing (13.8s)
+  ✓  2 [webkit] › tests/self-healing.spec.ts:16:7 › Self-healing locators › falls back down the strategy chain and records the heal @healing (14.6s)
+  ✘  3 [webkit] › tests/self-healing.spec.ts:63:7 › Self-healing locators › the login journey survives selector drift on the live app @healing @e2e (17.1s)
+
+
+  1) [webkit] › tests/self-healing.spec.ts:63:7 › Self-healing locators › the login journey survives selector drift on the live app @healing @e2e 
+
+    Error: drift should be recorded as telemetry
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+       at ../src/pages/resilient-login.page.ts:66
+
+      64 |   /** Fails the test if drift was silently absorbed without being reported. */
+      65 |   async expectHealingReported(): Promise<void> {
+    > 66 |     expect(this.healingLog.count, 'drift should be recorded as telemetry').toBeGreaterThan(0);
+         |                                                                            ^
+      67 |   }
+      68 | }
+      69 |
+        at ResilientLoginPage.expectHealingReported (/Users/katsan/Downloads/files/qa-portfolio/playwright-e2e-framework/src/pages/resilient-login.page.ts:66:76)
+        at /Users/katsan/Downloads/files/qa-portfolio/playwright-e2e-framework/tests/self-healing.spec.ts:108:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/self-healing-Self-healing--9c31d-on-the-live-app-healing-e2e-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/self-healing-Self-healing--9c31d-on-the-live-app-healing-e2e-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/self-healing-Self-healing--9c31d-on-the-live-app-healing-e2e-webkit/error-context.md
+
+  1 failed
+    [webkit] › tests/self-healing.spec.ts:63:7 › Self-healing locators › the login journey survives selector drift on the live app @healing @e2e 
+  2 passed (26.3s)
+
+To open last HTML report run:
+[36m[39m
+[36m  yarn playwright show-report[39m
+[36m[39m
