@@ -20,13 +20,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npx playwright test --project=chromium --grep @smoke
+      - run: yarn install --frozen-lockfile
+      - run: yarn playwright install --with-deps chromium
+      - run: yarn playwright test --project=chromium --grep @smoke
 
   full-suite:
-    name: Full suite (${{ matrix.project }})
+    name: Tests - ${{ matrix.project }}
     needs: smoke
     timeout-minutes: 30
     runs-on: ubuntu-latest
@@ -39,11 +38,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - name: Run tests
-        run: npx playwright test --project=${{ matrix.project }}
+      - run: yarn install --frozen-lockfile
+      - run: yarn playwright install --with-deps
+      - name: Run tests on ${{ matrix.project }}
+        run: yarn playwright test --project=${{ matrix.project }}
       - name: Upload HTML report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
