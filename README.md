@@ -5,7 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-A test automation framework built with **Playwright + TypeScript** that shows how to structure E2E tests at scale. It covers the Page Object Model, reusable components, dependency injection with fixtures, a self-healing locator layer that bounces back from selector drift, and proper CI integration.
+A test automation framework built with **Playwright + TypeScript** that shows how to structure E2E tests at scale. It covers the Page Object Model, reusable components, dependency injection with fixtures, a self-healing locator layer that recovers from selector drift, and proper CI integration.
 
 It runs against **[saucedemo.com](https://www.saucedemo.com)**, a public demo storefront, so anyone can clone this repo and have a green suite in under two minutes. No VPN, no seeded database, no credentials to request.
 
@@ -46,7 +46,7 @@ yarn test
 | **Test tagging**             | `@smoke`, `@regression`, `@e2e` allow a fast PR gate and a deeper scheduled run from one suite                                                                                                                           |
 | **Self-healing locators**    | Elements resolve from a prioritised strategy chain; a fallback is recorded as a healing event and attached to the report, so drift becomes visible telemetry instead of silent tolerance (`src/support/self-healing.ts`) |
 | **Cross-browser**            | Chromium, Firefox, WebKit and mobile Chrome as separate projects in a CI matrix                                                                                                                                          |
-| **Failure diagnostics**      | Trace on first retry, screenshot and video on failure, uploaded as CI artefacts                                                                                                                                          |
+| **Failure diagnostics**      | Trace on first retry, screenshot and video on failure, uploaded as CI artifacts                                                                                                                                          |
 | **Config as environment**    | `BASE_URL` and credentials come from environment variables, with the public demo values as fallback                                                                                                                      |
 
 ---
@@ -90,7 +90,7 @@ yarn test
 
 ## The self-healing layer
 
-Selector drift is the biggest maintenance cost in a UI suite: a developer renames a class or drops a `data-test` attribute, and a green suite goes red for a reason that has nothing to do with product behaviour.
+Selector drift is the biggest maintenance cost in a UI suite: a developer renames a class or drops a `data-test` attribute, and a green suite goes red for a reason that has nothing to do with product behavior.
 
 `resolveResilient()` resolves an element from a **prioritised strategy chain** instead of a single selector: the semantic, intentional locator first, then progressively more incidental fallbacks.
 
